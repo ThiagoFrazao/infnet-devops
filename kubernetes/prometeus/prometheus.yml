@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# A list of scrape configurations.
+scrape_configs:
+  - job_name: "prometeus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "produtos-actuator"
+    metrics_path: "/api/products/actuator/prometheus"
+    scrape_interval: 10s
+    static_configs:
+      - targets: ["10.244.0.53:8084"]
+  - job_name: "produtos-errors"
+    metrics_path: "/api/products/metrics/error"
+    scrape_interval: 10s
+    static_configs:
+      - targets: [ "10.244.0.53:8084" ]
+  - job_name: "produtos-quantidade"
+    metrics_path: "/api/products/metrics/quantidade"
+    scrape_interval: 60s
+    static_configs:
+      - targets: [ "10.244.0.53:8084" ]
